@@ -23,3 +23,13 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+namespace Settlements.API
+{
+    /// <summary>
+    /// Make program available to test project
+    /// </summary>
+    public partial class Program
+    {
+    }
+}
