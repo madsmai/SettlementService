@@ -46,15 +46,18 @@ public class BookingTests
     {
         // Arrange
         var client = factory.CreateClient();
-        for (int j = 0; j < 4; j++)
-        {
-            await client.PostBookingRequest(new BookingRequestDto("John Smith", "09:00"));
-        }
+        var requests = new List<Task<HttpResponseMessage>>();
 
         // Act
-        HttpResponseMessage response = await client.PostBookingRequest(new BookingRequestDto("John Smith", "09:00"));
+        for (int j = 0; j < 5; j++)
+        {
+            requests.Add(client.PostBookingRequest(new BookingRequestDto("John Smith", "09:00")));
+        }
+
+        var results = await Task.WhenAll(requests);
 
         // Assert
-        response.Should().HaveStatusCode(System.Net.HttpStatusCode.Conflict);
+        results.Count(r => r.StatusCode == System.Net.HttpStatusCode.OK).Should().Be(4);
+        results.Count(r => r.StatusCode == System.Net.HttpStatusCode.Conflict).Should().Be(1);
     }
 }
