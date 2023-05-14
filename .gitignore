@@ -1,9 +1,8 @@
-﻿################################################################################
+################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs
-/Settlements.API/.vs/Settlements.API
-/Settlements.API/Settlements.API/obj
+.vs
+obj
+bin
 *.user
-/Settlements.API/Settlements.API/bin/Debug/net7.0
