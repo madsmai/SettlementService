@@ -7,6 +7,7 @@ Post to "/Booking" with name and bookingTime
 Swagger doc at https://localhost:7246/swagger/index.html
 
 *Future work*
+
 The service has a potential issue with denial of service.
 A user could request 4 bookings foreach open hour and effectively shut down the service for the day.
 
