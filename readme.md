@@ -1,6 +1,7 @@
 Settlements API
 
 *Endpoints*
+
 Post to "/Booking" with name and bookingTime
 
 Swagger doc at https://localhost:7246/swagger/index.html
