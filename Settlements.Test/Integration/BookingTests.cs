@@ -19,25 +19,42 @@ public class BookingTests
         var client = factory.CreateClient();
 
         // Act
-        var response = await client.PostBookingRequest(new BookingRequestDto("John Smith", new TimeOnly(19, 0)));
+        var response = await client.PostBookingRequest(new BookingRequestDto("John Smith", "19:00"));
 
         // Assert
         response.Should().HaveStatusCode(System.Net.HttpStatusCode.BadRequest);
     }
 
     [Theory]
-    [InlineData("", 9, 0)]
-    [InlineData(" ", 9, 0)]
-    [InlineData("\n", 9, 0)]
-    public async Task InvalidData_Should_Return_BadRequest(string name, int hours, int minutes)
+    [InlineData("", "09:00")]
+    [InlineData(" ", "09:00")]
+    [InlineData("\n", "09:00")]
+    public async Task InvalidData_Should_Return_BadRequest(string name, string time)
     {
         // Arrange
         var client = factory.CreateClient();
 
         // Act
-        var response = await client.PostBookingRequest(new BookingRequestDto(name, new TimeOnly(hours, minutes)));
+        var response = await client.PostBookingRequest(new BookingRequestDto(name, time));
 
         // Assert
         response.Should().HaveStatusCode(System.Net.HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task RequestingBooking_FiveTimes_Should_Return_Conflict()
+    {
+        // Arrange
+        var client = factory.CreateClient();
+        for (int j = 0; j < 4; j++)
+        {
+            await client.PostBookingRequest(new BookingRequestDto("John Smith", "09:00"));
+        }
+
+        // Act
+        HttpResponseMessage response = await client.PostBookingRequest(new BookingRequestDto("John Smith", "09:00"));
+
+        // Assert
+        response.Should().HaveStatusCode(System.Net.HttpStatusCode.Conflict);
     }
 }
