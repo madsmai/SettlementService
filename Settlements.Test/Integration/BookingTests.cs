@@ -3,11 +3,11 @@ using Settlements.API.Models;
 
 namespace Settlements.Test.Integration;
 public class BookingTests
-    : IClassFixture<WebApplicationFactory<Settlements.API.Program>>
+    : IClassFixture<WebApplicationFactory<API.Program>>
 {
-    private readonly WebApplicationFactory<Settlements.API.Program> factory;
+    private readonly WebApplicationFactory<API.Program> factory;
 
-    public BookingTests(WebApplicationFactory<Settlements.API.Program> factory)
+    public BookingTests(WebApplicationFactory<API.Program> factory)
     {
         this.factory = factory;
     }

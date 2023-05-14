@@ -8,12 +8,10 @@ namespace Settlements.API.Controllers
     [Route("[controller]")]
     public class BookingController : ControllerBase
     {
-        private readonly ILogger<BookingController> logger;
         private readonly IBookingService bookingService;
 
-        public BookingController(ILogger<BookingController> logger, IBookingService bookingService)
+        public BookingController(IBookingService bookingService)
         {
-            this.logger = logger;
             this.bookingService = bookingService;
         }
 
